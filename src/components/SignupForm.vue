@@ -18,6 +18,13 @@
       <label>Accept terms and conditions</label>
     </div>
 
+    <!-- Keyboard events -->
+    <label>Skills:</label>
+    <input type="text" v-model="tempSkill" @keyup.alt="addSkill">
+    <div v-for="skill in skills" :key="skill" class="pill">
+      {{ skill }}
+    </div>
+
     <!-- Multiple checkboxes -->
     <!-- <div>
       <input type="checkbox" value="shaun" v-model="names">
@@ -48,7 +55,20 @@ export default {
       password: '',
       role: 'designer',
       terms: false,
+      tempSkill: '',
+      skills: [],
       // names: []
+    }
+  },
+  methods: {
+    addSkill(e) {
+      console.log(e)
+      if (e.key === ',' && this.tempSkill) {
+        if (!this.skills.includes(this.tempSkill)) {
+          this.skills.push(this.tempSkill)
+        }
+        this.tempSkill = ''
+      }
     }
   }
 }
